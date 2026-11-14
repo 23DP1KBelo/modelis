@@ -56,8 +56,13 @@ print("\nPirmās rindas:\n", df.head())
 # Iegūstam trūkstošo vērtību skaitu katrā kolonnā.
 print("\nTrūkstošās vērtības katrā kolonnā:\n", df.isnull().sum())
 
+# Iegūstam nederīgās rindas, kur eksāmena reuzltāts ir lielāks par 100 vai mazāks par 0
+print("\nNederīgās rindas: ",((df["Eksāmenu_rezultāti"] < 0) | (df["Eksāmenu_rezultāti"] > 100)).sum())
+nederigas_rindas = df[(df["Eksāmenu_rezultāti"] < 0) |(df["Eksāmenu_rezultāti"] > 100)]
+df = df.drop(nederigas_rindas.index)
+
 # Iegūstam cik ir dublētu rindu un dzēšam tās, ja tādas eksistē
-print("Dublētās rindas:", df.duplicated().sum())
+print("\nDublētās rindas:", df.duplicated().sum())
 df = df.drop_duplicates()
 
 # Noņemam nevajadzīgās kolonnas, kas neietekmē eksāmena rezultātus
