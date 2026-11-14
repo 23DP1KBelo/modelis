@@ -5,6 +5,7 @@ OUTPUT_FILE = Path(__file__).parent / "tirs.csv"
 
 # Iegūstam neiztīrīto datu kopu
 df = pd.read_csv('dati/StudentPerformanceFactors.csv')
+sakuma_rindas = len(df)
 
 # Apskatām csv faila struktūru
 print('Rindas, kolonnas:', df.shape)
@@ -55,16 +56,15 @@ print("\nPirmās rindas:\n", df.head())
 # Iegūstam trūkstošo vērtību skaitu katrā kolonnā.
 print("\nTrūkstošās vērtības katrā kolonnā:\n", df.isnull().sum())
 
-# Iegūstam cik ir dublētu rindu
+# Iegūstam cik ir dublētu rindu un dzēšam tās, ja tādas eksistē
 print("Dublētās rindas:", df.duplicated().sum())
+df = df.drop_duplicates()
 
 # Noņemam nevajadzīgās kolonnas, kas neietekmē eksāmena rezultātus
 df = df.drop(columns=["Ģimenes_budžets", "Vecāku_izglītības_līmenis", "Attālums_no_mājām", "Dzimums"])
 
-# Pievienojam trūkstošās vērtības, aizildot tas ar visbiežāk sastopamo vērtību Skolotāju_kvalitātē
+# Pievienojam trūkstošās vērtības, aizpildot tas ar visbiežāk sastopamo vērtību Skolotāju_kvalitātē
 df["Skolotāju_kvalitāte"] = df["Skolotāju_kvalitāte"].fillna(df["Skolotāju_kvalitāte"].mode()[0])
-
-
 
 # Pārveidojam teksta vērtības uz skaitļiem
 df = pd.get_dummies(df, columns=["Vecāku_iesaiste", 
@@ -78,8 +78,15 @@ df = pd.get_dummies(df, columns=["Vecāku_iesaiste",
                                  "Macību_grūtības"], dtype=int)
 
 
+# Pārbaudām vai nav palikušas trūkstošas vērtības
 print("\nTrūkstošās vērtības katrā kolonnā:\n", df.isnull().sum())
 
+
+print("\nRindas pirms tīrīšanas:", sakuma_rindas)
+print("\nRindas pēc tīrīšanas:", len(df))
+print("\nDzēstās rindas:", sakuma_rindas - len(df))
+
+# Sablabājam attīrītos datus tirs.csv failā
 df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")
 print(f"\nSaglabāts failā {OUTPUT_FILE} (rindu skaits: {len(df)}):\n", df.head())
 
