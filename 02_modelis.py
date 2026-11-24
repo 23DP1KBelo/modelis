@@ -45,4 +45,16 @@ elif testa_precizitate == bazes_precizitate:
 else:
     print("Modelis ir sliktāks par bāzes līniju.")
 
+# Modeļa precizitātei divas svarīgākās kolonnas
+kolonnas = pd.Series(
+    modelis.feature_importances_,
+    index=x.columns
+)
 
+print("\nDivas svarīgākās kolonnas:")
+print(kolonnas.sort_values(ascending=False).head(2))
+
+# Reālie dati pret prognozētajiem
+print("\nPirmās 20 prognozes:")
+for ista_atbilde, prognoze in zip(y_test.iloc[:20], testa_prognozes[:20]):
+    print("Īstā kategorija:", ista_atbilde, "| Prognozētā kategorija:", prognoze)
