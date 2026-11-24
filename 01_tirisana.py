@@ -59,10 +59,12 @@ print("\nTrūkstošās vērtības katrā kolonnā:\n", df.isnull().sum())
 # Iegūstam nederīgās rindas, kur eksāmena reuzltāts ir lielāks par 100 vai mazāks par 0
 print("\nNederīgās rindas: ",((df["Eksāmenu_rezultāti"] < 0) | (df["Eksāmenu_rezultāti"] > 100)).sum())
 nederigas_rindas = df[(df["Eksāmenu_rezultāti"] < 0) |(df["Eksāmenu_rezultāti"] > 100)]
+nederigo_skaits = len(nederigas_rindas)
 df = df.drop(nederigas_rindas.index)
 
 # Iegūstam cik ir dublētu rindu un dzēšam tās, ja tādas eksistē
-print("\nDublētās rindas:", df.duplicated().sum())
+dublikatu_skaits = df.duplicated().sum()
+print("\nDublētās rindas:", dublikatu_skaits)
 df = df.drop_duplicates()
 
 # Noņemam nevajadzīgās kolonnas, kas neietekmē eksāmena rezultātus
@@ -90,6 +92,8 @@ print("\nTrūkstošās vērtības katrā kolonnā:\n", df.isnull().sum())
 print("\nRindas pirms tīrīšanas:", sakuma_rindas)
 print("\nRindas pēc tīrīšanas:", len(df))
 print("\nDzēstās rindas:", sakuma_rindas - len(df))
+print("Dzēstās nederīgo rezultātu rindas:", nederigo_skaits)
+print("Dzēstās dublētās rindas:", dublikatu_skaits)
 
 # Sablabājam attīrītos datus tirs.csv failā
 df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")
