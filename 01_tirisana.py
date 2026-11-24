@@ -11,6 +11,8 @@ sakuma_rindas = len(df)
 print('Rindas, kolonnas:', df.shape)
 print("\nPirmās rindas:\n", df.head())
 
+# Atrodam zemāko eksāmenu rezultātu, lai zinātu, kādu līniju noteikt, kas būs nokārtots eksāmens un kas nē
+print("Mazākais eksāmena rezultāts:", df["Exam_Score"].min())
 # Pārtulkojam kolonnu nosaukumus 
 df = df.rename(columns={
     "Hours_Studied": "Mācību_stundas",
@@ -50,7 +52,7 @@ df["Vecāku_izglītības_līmenis"] = df["Vecāku_izglītības_līmenis"].replac
 df["Attālums_no_mājām"] = df["Attālums_no_mājām"].replace({"Near": "Tuvu", "Moderate": "Vidēji tālu", "Far": "Tālu"})
 df["Dzimums"] = df["Dzimums"].replace({"Male": "Vīrietis", "Female": "Sieviete"})
 
-print("Rindas, kolonnas:", df.shape)
+print("\nRindas, kolonnas:", df.shape)
 print("\nPirmās rindas:\n", df.head())
 
 # Iegūstam trūkstošo vērtību skaitu katrā kolonnā.
