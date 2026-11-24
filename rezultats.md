@@ -27,3 +27,10 @@ tavuprāt, tieši tur tas kļūdījās.
 tam tas neder.
 
 > Modelis nevar lemt vai skolēns tiešām ir nokārtojis eksāmenu, jo, lai gan viņam ir precizitāte 82.98%, tas kļūdās, tādēļ viņam šo darbu nevar uzticēt.
+
+### Pašvērtējums
+
+Izdevās izveidot modeli, kas kaut ko spēj izdarīt un ir gana precīzs, lai gan prognoze ir diezgan vienkārša.
+Neizdevās atrast piemērotāku datu kopu, jo šī, manuprāt, bija pārāk pārpildīta ar kolonnām un prognoze ir pārāk vienkārša.
+
+Nākamreiz es atbildīgāk apmeklētu stundas, lai būtu vienkāršāk šādus projketus izveidot. Un izvēlētos citu datu kopu.
